@@ -3,7 +3,6 @@ import Button from './Button';
 
 interface Props {
     buttonText: string;
-    buttonLink: string;
     handleSubmit: (data: State) => void;
 }
 
@@ -46,7 +45,7 @@ class Form extends React.Component<Props, State> {
     }
     
     render() {
-        const { buttonText, buttonLink } = this.props;
+        const { buttonText } = this.props;
 
         return (
             <form>
@@ -72,7 +71,6 @@ class Form extends React.Component<Props, State> {
                 </label>
                 <Button 
                     text={buttonText} 
-                    link={buttonLink}
                     onClick={this.submitForm}
                 />
             </form>
