@@ -1,16 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Form from './Form';
 
 const SingUpPage: React.FC = () => {
     return (
-        <Form 
-            title='Get started'
-            text='Already have an account? '
-            linkHref='/loggin'
-            linkText='Login'
-            buttonText='Join'
-            buttonLink='/chat'
-        />
+        <div>
+            <h1>Get started</h1>
+            <p>
+                Already have an account
+                ? <Link to='/loggin'>
+                    Login
+                </Link>
+            </p>
+            <Form 
+                buttonText='Join'
+                buttonLink='/chat'
+            />
+        </div>
     );
 };
 

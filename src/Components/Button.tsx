@@ -8,11 +8,11 @@ interface Props {
 
 function Button(props: Props) {
     return (
-        // <button>
-            <Link to={props.link}>
+        <Link to={props.link}>
+            <button>
                 {props.text}
-            </Link>
-        // </button>
+            </button>
+        </Link>
     );
 };
 

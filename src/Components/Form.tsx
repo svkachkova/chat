@@ -1,12 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Button from './Button';
 
 interface Props {
-    title: string;
-    text: string;
-    linkHref: string;
-    linkText: string;
     buttonText: string;
     buttonLink: string;
 }
@@ -14,13 +9,6 @@ interface Props {
 function Form(props: Props) {
     return (
         <form>
-            <h1>{props.title}</h1>
-            <p>
-                {props.text}
-                <Link to={props.linkHref}>
-                {props.linkText}
-            </Link>
-            </p>
             <label>
                 Login: 
                 <input 
