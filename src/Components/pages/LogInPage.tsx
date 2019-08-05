@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Form from './Form';
+import Form from '../Form';
 
 const LogInPage: React.FC = () => {
     return (
@@ -14,7 +14,7 @@ const LogInPage: React.FC = () => {
             </p>
             <Form 
                 buttonText='Login'
-                buttonLink='/chat'
+                buttonLink='/chat/:id'
             />
         </div>
     );
