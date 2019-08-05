@@ -6,7 +6,7 @@ interface State {
     userIsCreated: boolean;
 }
 
-class SingUpPage extends React.Component<{}, State> {
+class SignUpPage extends React.Component<{}, State> {
     constructor(props: {}) {
         super(props);
         this.state = {
@@ -61,4 +61,4 @@ class SingUpPage extends React.Component<{}, State> {
     }
 };
 
-export default SingUpPage;
+export default SignUpPage;

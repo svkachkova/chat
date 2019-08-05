@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import PromoPage from './Components/pages/PromoPage';
-import SignUpPage from './Components/pages/SingUpPage';
+import SignUpPage from './Components/pages/SignUpPage';
 import LogInPage from './Components/pages/LogInPage';
 import Chat from './Components/pages/Chat';
 import NoMatch from './Components/pages/NoMatch';
