@@ -6,7 +6,7 @@ const PromoPage: React.FC = () => {
         <div>
             <h1>Webchat</h1>
             <Button 
-                text="Get Started"
+                value='Get Started'
                 link='/signup'
             />
         </div>

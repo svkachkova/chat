@@ -2,8 +2,8 @@ import React from 'react';
 import Button from './Button';
 
 interface Props {
-    buttonText: string;
-    handleSubmit: (data: State) => void;
+    buttonValue: string;
+    handleSubmit: () => void;
 }
 
 export interface State {
@@ -39,38 +39,43 @@ class Form extends React.Component<Props, State> {
     }
 
     submitForm(event: React.MouseEvent) {
-        // event.preventDefault;
-        this.props.handleSubmit(this.state);
+        event.preventDefault();
+
+        const userData: State = {...this.state};
+        (window as any).ee.emit('getUserData',	userData);
+
+        this.props.handleSubmit();
         this.setState(initialState);
     }
-    
+
     render() {
-        const { buttonText } = this.props;
+        const { buttonValue } = this.props;
+        const { login, password } = this.state;
 
         return (
             <form>
                 <label>
                     Login: 
                     <input 
-                        type="text" 
-                        name="login"
-                        value={this.state.login}
-                        placeholder="Login"
+                        type='text' 
+                        name='login'
+                        value={login}
+                        placeholder='Login'
                         onChange={this.handleChange}
                     />
                 </label>
                 <label>
                     Password: 
                     <input
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                        placeholder="Password"
+                        type='password'
+                        name='password'
+                        value={password}
+                        placeholder='Password'
                         onChange={this.handleChange}
                     />
                 </label>
                 <Button 
-                    text={buttonText} 
+                    value={buttonValue} 
                     onClick={this.submitForm}
                 />
             </form>
