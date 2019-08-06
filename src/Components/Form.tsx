@@ -6,21 +6,18 @@ interface Props {
     handleSubmit: () => void;
 }
 
-export interface State {
+interface State {
     login: string;
     password: string;
 }
 
-const initialState: State = {
-    login: '',
-    password: ''
-};
-
 class Form extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
-
-        this.state = initialState;
+        this.state = {
+            login: '',
+            password: ''
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.submitForm = this.submitForm.bind(this);
@@ -45,7 +42,6 @@ class Form extends React.Component<Props, State> {
         (window as any).ee.emit('getUserData',	userData);
 
         this.props.handleSubmit();
-        this.setState(initialState);
     }
 
     render() {

@@ -96,24 +96,20 @@ class App extends React.Component<{}, State> {
       <div className='vertical-center'>
         <Switch>
           <Route exact path='/' component={PromoPage}/>
-
-          {/* <Route path='/signup' component={SignUpPage}/> */}
    
           <Route path='/signup' render={() => (
             this.state.userIsCreated ? (
               <Redirect to='/loggin' />
             ) : (
-              <SignUpPage handleSubmit={() => {}}/>
+              <SignUpPage handleSubmit={() => this.handleSignUp()}/>
             )
           )}/>
-
-          {/* <Route path='/loggin' component={LogInPage}/> */}
 
           <Route path='/loggin' render={() => (
             this.state.isLoggin ? (
               <Redirect to='/chat/:id' />
             ) : (
-              <LogInPage handleSubmit={() => {}}/>
+              <LogInPage handleSubmit={() => this.handleLogIn()}/>
             )
           )}/>
 
