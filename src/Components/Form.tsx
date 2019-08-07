@@ -25,11 +25,13 @@ class Form extends React.Component<Props, State> {
 
     handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target as HTMLInputElement;
+        const { login, password } = this.props.userData;
 
         this.setState(state => ({
             ...state,
             [name]: value
         }));
+
         // this.setState({
         //     [name]: value
         // } as Pick<State, keyof State>);
@@ -37,10 +39,6 @@ class Form extends React.Component<Props, State> {
 
     submitForm(event: React.MouseEvent) {
         event.preventDefault();
-
-        const userData: State = {...this.state};
-        (window as any).ee.emit('getUserData',	userData);
-
         this.props.handleSubmit();
     }
 
