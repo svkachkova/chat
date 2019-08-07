@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import PromoPage from './Components/pages/PromoPage';
-import SignUpPage from './Components/pages/SignUpPage';
-import LogInPage from './Components/pages/LogInPage';
-import Chat from './Components/pages/Chat';
-import NoMatch from './Components/pages/NoMatch';
+import Promo from './containers/Promo';
+import SignUp from './containers/SignUp';
+import LogIn from './containers/LogIn';
+import Chat from './containers/Chat';
+import NoMatch from './containers/NotFound';
 
 interface UserData {
     login: string;
@@ -85,13 +85,13 @@ class App extends React.Component<{}, State> {
         return (
             <div className='vertical-center'>
                 <Switch>
-                <Route exact path='/' component={PromoPage}/>
+                <Route exact path='/' component={Promo}/>
         
                 <Route path='/signup' render={() => (
                     this.state.userIsCreated ? (
                     <Redirect to='/loggin' />
                     ) : (
-                    <SignUpPage
+                    <SignUp
                         userData={this.state.user}
                         handleChange={this.handleUserChange}
                         handleSubmit={() => this.handleSignUpSubmit()}
@@ -102,7 +102,7 @@ class App extends React.Component<{}, State> {
                     this.state.isLoggin ? (
                     <Redirect to='/chat/:id' />
                     ) : (
-                    <LogInPage 
+                    <LogIn 
                         userData={this.state.user}
                         handleChange={this.handleUserChange}
                         handleSubmit={() => this.handleLogInSubmit()}

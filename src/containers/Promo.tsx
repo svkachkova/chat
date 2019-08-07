@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from '../Button';
+import Button from '../components/Button';
 
-const PromoPage: React.FC = () => {
+const Promo: React.FC = () => {
     return (
         <div>
             <h1>Webchat</h1>
@@ -13,4 +13,4 @@ const PromoPage: React.FC = () => {
     );
 };
 
-export default PromoPage;
+export default Promo;

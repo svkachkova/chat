@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Form, { UserData } from '../Form';
+import Form, { UserData } from '../components/Form';
 
 interface Props {
     userData: UserData;
@@ -8,7 +8,7 @@ interface Props {
     handleSubmit: () => void;
 }
 
-function LogInPage(props: Props) {
+function LogIn(props: Props) {
     return (
         <div>
             <h1>Log in</h1>
@@ -28,4 +28,4 @@ function LogInPage(props: Props) {
     );
 };
 
-export default LogInPage;
+export default LogIn;
