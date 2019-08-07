@@ -1,23 +1,21 @@
 import React from 'react';
 import Button from './Button';
 
-interface Props {
-    buttonValue: string;
-    handleSubmit: () => void;
-}
-
-interface State {
+export interface UserData {
     login: string;
     password: string;
 }
 
-class Form extends React.Component<Props, State> {
+interface Props {
+    buttonValue: string;
+    userData: UserData;
+    onUserChange: (data: UserData) => void;
+    handleSubmit: () => void;
+}
+
+class Form extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
-        this.state = {
-            login: '',
-            password: ''
-        };
 
         this.handleChange = this.handleChange.bind(this);
         this.submitForm = this.submitForm.bind(this);
@@ -27,14 +25,17 @@ class Form extends React.Component<Props, State> {
         const { name, value } = event.target as HTMLInputElement;
         const { login, password } = this.props.userData;
 
-        this.setState(state => ({
-            ...state,
-            [name]: value
-        }));
-
-        // this.setState({
-        //     [name]: value
-        // } as Pick<State, keyof State>);
+        if (name === 'login') {
+            this.props.onUserChange({
+                login: value,
+                password: password
+            });
+        } else if (name === 'password') {
+            this.props.onUserChange({
+                login: login,
+                password: value
+            });
+        }
     }
 
     submitForm(event: React.MouseEvent) {
@@ -44,7 +45,7 @@ class Form extends React.Component<Props, State> {
 
     render() {
         const { buttonValue } = this.props;
-        const { login, password } = this.state;
+        const { login, password } = this.props.userData;
 
         return (
             <form>

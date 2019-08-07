@@ -33,11 +33,18 @@ class App extends React.Component<{}, State> {
             }
         };
 
-        this.handleSignUp = this.handleSignUp.bind(this);
-        this.handleLogIn = this.handleLogIn.bind(this);
+        this.handleUserChange = this.handleUserChange.bind(this);
+        this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
+        this.handleLogInSubmit = this.handleLogInSubmit.bind(this);
     }
 
-    handleSignUp() {
+    handleUserChange(data: UserData) {
+        this.setState({
+            user: data
+        });
+    }
+
+    handleSignUpSubmit() {
         const { login, password } = this.state.user;
 
         const url: string = `http://192.168.1.2:3912/api/createUser?login=${login}&password=${password}`;
@@ -55,7 +62,7 @@ class App extends React.Component<{}, State> {
         submit(url, options, callback);
     }
 
-    handleLogIn() {
+    handleLogInSubmit() {
         const { login, password } = this.state.user;
         
         const url: string = `http://192.168.1.2:3912/api/login?login=${login}&password=${password}`;
@@ -84,16 +91,22 @@ class App extends React.Component<{}, State> {
                     this.state.userIsCreated ? (
                     <Redirect to='/loggin' />
                     ) : (
-                    <SignUpPage handleSubmit={() => this.handleSignUp()}/>
-                    )
+                    <SignUpPage
+                        userData={this.state.user}
+                        handleChange={this.handleUserChange}
+                        handleSubmit={() => this.handleSignUpSubmit()}
+                    />)
                 )}/>
 
                 <Route path='/loggin' render={() => (
                     this.state.isLoggin ? (
                     <Redirect to='/chat/:id' />
                     ) : (
-                    <LogInPage handleSubmit={() => this.handleLogIn()}/>
-                    )
+                    <LogInPage 
+                        userData={this.state.user}
+                        handleChange={this.handleUserChange}
+                        handleSubmit={() => this.handleLogInSubmit()}
+                    />)
                 )}/>
 
                 <Route path='/chat/:id' component={Chat}/>
