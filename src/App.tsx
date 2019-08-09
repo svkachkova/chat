@@ -47,7 +47,7 @@ class App extends React.Component<{}, State> {
     handleSignUpSubmit() {
         const { login, password } = this.state.user;
 
-        const url: string = `http://192.168.1.2:3912/api/createUser?login=${login}&password=${password}`;
+        const url: string = `http://192.168.1.6:3912/api/createUser?login=${login}&password=${password}`;
         const options: RequestInit = {
             method: 'GET',
             mode: 'cors',
@@ -65,7 +65,7 @@ class App extends React.Component<{}, State> {
     handleLogInSubmit() {
         const { login, password } = this.state.user;
         
-        const url: string = `http://192.168.1.2:3912/api/login?login=${login}&password=${password}`;
+        const url: string = `http://192.168.1.6:3912/api/login?login=${login}&password=${password}`;
         const options: RequestInit = {
             method: 'GET',
             mode: 'cors',
