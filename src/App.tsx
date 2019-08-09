@@ -4,8 +4,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Promo from './containers/Promo';
 import SignUp from './containers/SignUp';
 import LogIn from './containers/LogIn';
-import Chat from './containers/Chat';
-import NoMatch from './containers/NotFound';
+import Chat from './containers/Chat'; 
+import NotFound from './containers/NotFound';
 
 interface UserData {
     login: string;
@@ -110,7 +110,7 @@ class App extends React.Component<{}, State> {
                 )}/>
 
                 <Route path='/chat/:id' component={Chat}/>
-                <Route component={NoMatch} />
+                <Route component={NotFound} />
                 </Switch>
             </div>
         );
