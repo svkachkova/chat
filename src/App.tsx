@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Promo from './containers/Promo';
-import SignUp from './containers/SignUp';
-import LogIn from './containers/LogIn';
-import Chat from './containers/Chat'; 
 import NotFound from './containers/NotFound';
+
+const SignUp = lazy(() => import('./containers/SignUp'));
+const LogIn = lazy(() => import('./containers/LogIn'));
+const Chat = lazy(() => import('./containers/Chat'));
 
 interface UserData {
     login: string;
@@ -19,7 +20,7 @@ interface State {
     user: UserData;
 }
 
-class App extends React.Component<{}, State> {
+class App extends Component<{}, State> {
     constructor(props: {}) {
         super(props);
 
@@ -84,34 +85,36 @@ class App extends React.Component<{}, State> {
     render() {
         return (
             <div className='vertical-center'>
+            <Suspense fallback={<h1>Loading...</h1>}>
                 <Switch>
-                <Route exact path='/' component={Promo}/>
-        
-                <Route path='/signup' render={() => (
-                    this.state.userIsCreated ? (
-                    <Redirect to='/loggin' />
-                    ) : (
-                    <SignUp
-                        userData={this.state.user}
-                        handleChange={this.handleUserChange}
-                        handleSubmit={() => this.handleSignUpSubmit()}
-                    />)
-                )}/>
+                    <Route exact path='/' component={Promo}/>
+            
+                    <Route path='/signup' render={() => (
+                        this.state.userIsCreated ? (
+                        <Redirect to='/loggin' />
+                        ) : (
+                        <SignUp
+                            userData={this.state.user}
+                            handleChange={this.handleUserChange}
+                            handleSubmit={() => this.handleSignUpSubmit()}
+                        />)
+                    )}/>
 
-                <Route path='/loggin' render={() => (
-                    this.state.isLoggin ? (
-                    <Redirect to='/chat/:id' />
-                    ) : (
-                    <LogIn 
-                        userData={this.state.user}
-                        handleChange={this.handleUserChange}
-                        handleSubmit={() => this.handleLogInSubmit()}
-                    />)
-                )}/>
+                    <Route path='/loggin' render={() => (
+                        this.state.isLoggin ? (
+                        <Redirect to='/chat/:id' />
+                        ) : (
+                        <LogIn 
+                            userData={this.state.user}
+                            handleChange={this.handleUserChange}
+                            handleSubmit={() => this.handleLogInSubmit()}
+                        />)
+                    )}/>
 
-                <Route path='/chat/:id' component={Chat}/>
-                <Route component={NotFound} />
+                    <Route path='/chat/:id' component={Chat}/>
+                    <Route component={NotFound} />
                 </Switch>
+            </Suspense>
             </div>
         );
     }
