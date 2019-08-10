@@ -1,13 +1,33 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import Message from '../components/Message';
+import Button from '../components/Button';
 
-type TParams = { id: string };
+interface Props {}
 
-const Chat = ({ match }: RouteComponentProps<TParams>) => {
+const Chat = (props: Props) => {
     return(
         <div>
-            <h1>Hello chat!</h1>
-            <p>This is a page for user with ID: {match.params.id}</p> 
+            <div className='flex-row'>
+                <Button 
+                    value='Contacts' 
+                    link='/contacts'
+                />
+                <p>{user.login}</p>
+            </div>
+            <div>listMessages</div>
+            <form className='flex-row'>
+                <input
+                    type='text'
+                    name='message'
+                    value={message}
+                    placeholder='Write a message...'
+                    onChange={handleChange}
+                />
+                <Button 
+                    value='Send' 
+                    onClick={sendMessage}
+                />
+            </form>
         </div>
     );
 };

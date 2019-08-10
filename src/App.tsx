@@ -102,7 +102,7 @@ class App extends Component<{}, State> {
 
                     <Route path='/loggin' render={() => (
                         this.state.isLoggin ? (
-                        <Redirect to='/chat/:id' />
+                        <Redirect to='/chat' />
                         ) : (
                         <LogIn 
                             userData={this.state.user}
@@ -111,7 +111,7 @@ class App extends Component<{}, State> {
                         />)
                     )}/>
 
-                    <Route path='/chat/:id' component={Chat}/>
+                    <Route path='/chat' component={Chat}/>
                     <Route component={NotFound} />
                 </Switch>
             </Suspense>
