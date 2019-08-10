@@ -8,20 +8,20 @@ interface Props {
 }
 
 function Button(props: Props) {
-    if (props.link) {
-        return (
-            <Link to={props.link}>
-                <button onClick={props.onClick}>
-                    {props.value}
-                </button>
-            </Link>
-        );
-    }
-    return (
+    const button = (
         <button onClick={props.onClick}>
             {props.value}
         </button>
     );
+
+    if (props.link) {
+        return (
+            <Link to={props.link}>
+                {button}
+            </Link>
+        );
+    }
+    return button;
 };
 
 export default Button;
