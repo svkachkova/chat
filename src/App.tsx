@@ -84,7 +84,7 @@ class App extends Component<{}, State> {
     }
 
     render() {
-        const contactUserLogin: string = 'user1';
+        const contactUserLogin: string = 'abcabc';
 
         return (
             <div className='vertical-center'>

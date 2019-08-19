@@ -45,7 +45,7 @@ class Chat extends React.Component<Props, State> {
             .then(serverResponse => {
                 if (serverResponse.status) {
                     this.setState({
-                        history: serverResponse.history
+                        history: serverResponse.messages
                     });
                 } else {
                     console.log(serverResponse.message);
@@ -59,7 +59,7 @@ class Chat extends React.Component<Props, State> {
 
         const listMessages: JSX.Element[] = history.map((message: History, index: number) => {
             return (
-                <li key={index} className='float-left'>
+                <li key={index}>
                     <Message 
                         sender={message.sender}
                         message={message.message}
