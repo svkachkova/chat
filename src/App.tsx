@@ -6,6 +6,7 @@ import NotFound from './containers/NotFound';
 
 const SignUp = lazy(() => import('./containers/SignUp'));
 const LogIn = lazy(() => import('./containers/LogIn'));
+const Contacts = lazy(() => import('./containers/Contacts'));
 const Chat = lazy(() => import('./containers/Chat'));
 
 interface UserData {
@@ -83,6 +84,8 @@ class App extends Component<{}, State> {
     }
 
     render() {
+        const contactUserLogin: string = 'user1';
+
         return (
             <div className='vertical-center'>
             <Suspense fallback={<h1>Loading...</h1>}>
@@ -102,7 +105,7 @@ class App extends Component<{}, State> {
 
                     <Route path='/loggin' render={() => (
                         this.state.isLoggin ? (
-                        <Redirect to='/chat' />
+                        <Redirect to='/contacts' />
                         ) : (
                         <LogIn 
                             userData={this.state.user}
@@ -111,7 +114,18 @@ class App extends Component<{}, State> {
                         />)
                     )}/>
 
-                    <Route path='/chat' component={Chat}/>
+                    <Route path='/contacts' render={() => (
+                        <Contacts token={this.state.accessToken} />
+                    )}/>
+
+                    <Route path={`/chat/${contactUserLogin}`} render={() => (
+                        <Chat 
+                            token={this.state.accessToken} 
+                            userLogin={this.state.user.login} 
+                            contactUserLogin={contactUserLogin}
+                        />
+                    )}/>
+
                     <Route component={NotFound} />
                 </Switch>
             </Suspense>

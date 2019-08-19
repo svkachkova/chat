@@ -1,15 +1,17 @@
 import React from 'react';
 
 interface Props {
+    sender: string;
     message: string;
-    date: Date;
+    datetime: string;
 }
 
 const Message = (props: Props) => {
     return (
         <div>
+            <p>{props.sender}</p>
             <p>{props.message}</p>
-            <span>{props.date.toLocaleTimeString('ru')}</span>
+            <span>{props.datetime}</span>
         </div>
     );
 };
