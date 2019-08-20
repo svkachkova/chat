@@ -665,3 +665,33 @@ caption {
   =============== */
 /* Layout
   =============== */
+
+.message-list {
+  box-sizing: border-box;
+  padding-left: 6px;
+  margin: 0;
+  list-style: none;
+}
+
+.message {
+  margin: 15px 0;
+}
+
+.message div:nth-child(1) {
+  font-size: 14px;
+  color: #3e5869;
+  margin-bottom: 3px;
+}
+
+.message div:nth-child(2) {
+  background: #5ea3d0;
+  color: white;
+  display: inline;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.message div:nth-child(3) {
+  font-size: 14px;
+  color: #3e5869;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import Message from '../components/Message';
 import Button from '../components/Button';
 
-interface History {
+interface Message {
     sender: string;
     receiver: string;
     message: string;
@@ -16,16 +16,23 @@ interface Props {
 }
 
 interface State {
-    history: History[];
+    message: string;
+    messages: Message[];
 }
 
 class Chat extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
+
         this.state = {
-            history: []
+            message: '',
+            messages: []
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.sendMessage = this.sendMessage.bind(this);
     }
+
     componentDidMount() {
         const { token, contactUserLogin } = this.props;
 
@@ -45,7 +52,7 @@ class Chat extends React.Component<Props, State> {
             .then(serverResponse => {
                 if (serverResponse.status) {
                     this.setState({
-                        history: serverResponse.messages
+                        messages: serverResponse.messages
                     });
                 } else {
                     console.log(serverResponse.message);
@@ -54,12 +61,27 @@ class Chat extends React.Component<Props, State> {
             .catch(error => console.log(error.message));
     }
 
-    render() {
-        const { history } = this.state;
+    handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({
+            message: event.target.value
+        });
+    }
 
-        const listMessages: JSX.Element[] = history.map((message: History, index: number) => {
+    sendMessage(event: React.MouseEvent) {
+        event.preventDefault();
+        sendMessage(this.state.message);
+
+        this.setState({
+            message: ''
+        });
+    }
+
+    render() {
+        const { message, messages } = this.state;
+
+        const listMessages: JSX.Element[] = messages.map((message: Message, index: number) => {
             return (
-                <li key={index}>
+                <li key={index} className='message'>
                     <Message 
                         sender={message.sender}
                         message={message.message}
@@ -78,23 +100,27 @@ class Chat extends React.Component<Props, State> {
                     />
                     <p>{this.props.userLogin}</p>
                 </div>
-                <ul>{listMessages}</ul>
-                {/* <form className='flex-row'>
+                <ul className='message-list'>{listMessages}</ul>
+                <form>
                     <input
                         type='text'
                         name='message'
                         value={message}
                         placeholder='Write a message...'
-                        onChange={handleChange}
+                        onChange={this.handleChange}
                     />
                     <Button 
                         value='Send' 
-                        onClick={sendMessage}
+                        onClick={this.sendMessage}
                     />
-                </form> */}
+                </form>
             </div>
         );
     }
 };
+
+function sendMessage(message: string) {
+    console.log('message: ', message);
+}
 
 export default Chat;

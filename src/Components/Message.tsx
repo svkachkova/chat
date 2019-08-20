@@ -8,11 +8,11 @@ interface Props {
 
 const Message = (props: Props) => {
     return (
-        <div>
-            <p>{props.sender}</p>
-            <p>{props.message}</p>
-            <span>{props.datetime}</span>
-        </div>
+        <>
+            <div>{props.sender}</div>
+            <div>{props.message}</div>
+            <div>{props.datetime}</div>
+        </>
     );
 };
 
