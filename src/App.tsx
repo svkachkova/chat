@@ -9,17 +9,21 @@ const LogIn = lazy(() => import('./containers/LogIn'));
 const Contacts = lazy(() => import('./containers/Contacts'));
 const Chat = lazy(() => import('./containers/Chat'));
 
-interface UserData {
+type UserData = {
     login: string;
     password: string;
 }
 
-interface State {
+type State = {
     userIsCreated: boolean;
     isLoggin: boolean;
     accessToken: string;
     user: UserData;
 }
+
+// type A = B & C;
+// type B = {}
+// type C = {}
 
 class App extends Component<{}, State> {
     constructor(props: {}) {

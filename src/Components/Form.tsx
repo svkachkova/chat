@@ -1,12 +1,12 @@
 import React from 'react';
 import Button from './Button';
 
-export interface UserData {
+export type UserData = {
     login: string;
     password: string;
 }
 
-interface Props {
+type Props = {
     buttonValue: string;
     userData: UserData;
     onUserChange: (data: UserData) => void;

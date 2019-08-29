@@ -2,15 +2,15 @@ import React from 'react';
 import Button from '../components/Button'
 import UserCard from '../components/UserCard';
 
-interface User {
+type User = {
     login: string;
 }
 
-interface Props {
+type Props = {
     token: string;
 }
 
-interface State {
+type State = {
     contacts: User[];
 }
 

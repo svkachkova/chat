@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+type Props = {
     sender: string;
     message: string;
     datetime: string;

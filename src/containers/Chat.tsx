@@ -2,20 +2,20 @@ import React from 'react';
 import Message from '../components/Message';
 import Button from '../components/Button';
 
-interface Message {
+type Message = {
     sender: string;
     receiver: string;
     message: string;
     datetime: string;
 }
 
-interface Props {
+type Props = {
     token: string;
     userLogin: string;
     contactUserLogin: string;
 }
 
-interface State {
+type State = {
     message: string;
     messages: Message[];
 }

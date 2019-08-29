@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Form, { UserData } from '../components/Form';
 
-interface Props {
+type Props = {
     userData: UserData;
     handleChange: (data: UserData) => void;
     handleSubmit: () => void;

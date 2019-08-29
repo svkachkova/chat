@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-interface Props {
+type Props = {
     value: string;
     link?: string;
     onClick?: (e: React.MouseEvent) => void; 
