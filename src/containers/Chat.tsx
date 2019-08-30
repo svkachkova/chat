@@ -34,31 +34,7 @@ class Chat extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        const { token, contactUserLogin } = this.props;
-
-        const url: string = `http://192.168.1.6:3912/api/getHistory?peer=${contactUserLogin}&token=${token}`;
-        const options: RequestInit = {
-            method: 'GET',
-            mode: 'cors',
-        };
-
-        fetch(url, options)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Network response was not ok.');
-            })
-            .then(serverResponse => {
-                if (serverResponse.status) {
-                    this.setState({
-                        messages: serverResponse.messages
-                    });
-                } else {
-                    console.log(serverResponse.message);
-                }
-            })
-            .catch(error => console.log(error.message));
+        this.getHistory();
     }
 
     handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -67,21 +43,58 @@ class Chat extends React.Component<Props, State> {
         });
     }
 
+    getHistory() {
+        const { token, contactUserLogin } = this.props;
+
+        const url: string = `http://192.168.1.6:3912/api/getHistory?peer=${contactUserLogin}&token=${token}`;
+        const options: RequestInit = {
+            method: 'GET',
+            mode: 'cors',
+        };
+    
+        const callback = (response: any) => {
+            this.setState({
+                messages: response.messages
+            });
+        }
+    
+        submit(url, options, callback);
+    }
+
     sendMessage(event: React.MouseEvent) {
         event.preventDefault();
-        sendMessage(this.state.message);
 
-        this.setState({
-            message: ''
-        });
+        const { token, contactUserLogin } = this.props;
+        const { message } = this.state;
+
+        const url: string = `http://192.168.1.6:3912/api/sendMessage?to=${contactUserLogin}&token=${token}&message=${message}`;
+        const options: RequestInit = {
+            method: 'GET',
+            mode: 'cors',
+        };
+
+        const callback = (response: any) => {
+            this.setState({
+                message: ''
+            });
+        }
+
+        sendMessage(this.state.message);
+        submit(url, options, callback);
+
+        this.getHistory();
     }
 
     render() {
         const { message, messages } = this.state;
+        const { userLogin } =  this.props;
 
         const listMessages: JSX.Element[] = messages.map((message: Message, index: number) => {
+            const className: string = userLogin === message.sender ? 
+                'message currentUser' : 'message';
+
             return (
-                <li key={index} className='message'>
+                <li key={index} className={className}>
                     <Message 
                         sender={message.sender}
                         message={message.message}
@@ -93,15 +106,17 @@ class Chat extends React.Component<Props, State> {
         
         return(
             <div>
-                <div className='flex-row'>
+                <div className='header'>
                     <Button 
                         value='Contacts' 
                         link='/contacts'
                     />
-                    <p>{this.props.userLogin}</p>
+                    <p className='headerUser'>
+                        {this.props.userLogin}
+                    </p>
                 </div>
-                <ul className='message-list'>{listMessages}</ul>
-                <form>
+                <ul className='messages-list'>{listMessages}</ul>
+                <form className='form'>
                     <input
                         type='text'
                         name='message'
@@ -118,6 +133,25 @@ class Chat extends React.Component<Props, State> {
         );
     }
 };
+
+function submit(url: string, options: RequestInit, callback: (response: any) => void) {
+
+    fetch(url, options)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(serverResponse => {
+            if (serverResponse.status) {
+                callback(serverResponse);
+            } else {
+                console.log(serverResponse.message);
+            }
+        })
+        .catch(error => console.log(error.message));
+}
 
 function sendMessage(message: string) {
     console.log('message: ', message);

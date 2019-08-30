@@ -9,9 +9,12 @@ type Props = {
 const Message = (props: Props) => {
     return (
         <>
-            <div>{props.sender}</div>
-            <div>{props.message}</div>
-            <div>{props.datetime}</div>
+            <span className='avatar'/>
+            <div className='message-content'>
+                <div className='username'>{props.sender}</div>
+                <div className='text'>{props.message}</div>
+                <div className='date'>{props.datetime.match(/\d\d:\d\d/)}</div>
+            </div>
         </>
     );
 };
