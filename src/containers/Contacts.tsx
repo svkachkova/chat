@@ -54,9 +54,9 @@ class Contacts extends React.Component<Props, State> {
     render() {
         const { contacts } = this.state;
 
-        const listUsers: JSX.Element[] = contacts.map((user: User, index: number) => {
+        const listUsers: JSX.Element[] = contacts.map((user: User) => {
             return (
-                <li key={index}>
+                <li key={user.login.toString()}>
                     <UserCard
                         login={user.login}
                         link={`/chat/${user.login}`}
