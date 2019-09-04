@@ -1,6 +1,8 @@
 import React, { Component, Suspense, lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+const Cookies = require('js-cookie');
+
 import Promo from './containers/Promo';
 import NotFound from './containers/NotFound';
 
@@ -21,9 +23,16 @@ type State = {
     user: UserData;
 }
 
+const defaultUser: UserData = {
+    login: '',
+    password: ''
+};
+
 // type A = B & C;
 // type B = {}
 // type C = {}
+
+// const token = document.cookie.match(/(?:^|; )token=/) ? document.cookie.replace(/token=([0-9a-z]{256});/, '$1') : '';
 
 class App extends Component<{}, State> {
     constructor(props: {}) {
@@ -32,11 +41,8 @@ class App extends Component<{}, State> {
         this.state = {
             userIsCreated: false,
             isLoggin: false,
-            accessToken: '',
-            user: {
-                login: '',
-                password: ''
-            }
+            accessToken: Cookies.get('token') || '',
+            user: defaultUser
         };
 
         this.handleUserChange = this.handleUserChange.bind(this);
@@ -52,39 +58,32 @@ class App extends Component<{}, State> {
 
     handleSignUpSubmit() {
         const { login, password } = this.state.user;
-
         const url: string = `http://192.168.1.6:3912/api/createUser?login=${login}&password=${password}`;
-        const options: RequestInit = {
-            method: 'GET',
-            mode: 'cors',
-        };
 
         const callback = (response: any) => {
             this.setState({
-                userIsCreated: true
+                userIsCreated: true,
+                user: defaultUser
             });
         };
 
-        submit(url, options, callback);
+        submit(url, callback);
     }
 
     handleLogInSubmit() {
         const { login, password } = this.state.user;
-        
         const url: string = `http://192.168.1.6:3912/api/login?login=${login}&password=${password}`;
-        const options: RequestInit = {
-            method: 'GET',
-            mode: 'cors',
-        };
 
         const callback = (response: any) => {
             this.setState({
                 isLoggin: true,
-                accessToken: response.token
+                accessToken: response.token,
+                user: defaultUser
             });
+            document.cookie = `token=${response.token}`;
         }
 
-        submit(url, options, callback);
+        submit(url, callback);
     }
 
     render() {
@@ -140,7 +139,12 @@ class App extends Component<{}, State> {
 
 export default App;
 
-function submit(url: string, options: RequestInit, callback: (response: any) => void) {
+function submit(url: string, callback: (response: any) => void) {
+
+    const options: RequestInit = {
+        method: 'GET',
+        mode: 'cors',
+    };
 
     fetch(url, options)
         .then(response => {
