@@ -1,10 +1,10 @@
 import React, { Component, Suspense, lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-const Cookies = require('js-cookie');
-
 import Promo from './containers/Promo';
 import NotFound from './containers/NotFound';
+
+const Cookies = require('js-cookie');
 
 const SignUp = lazy(() => import('./containers/SignUp'));
 const LogIn = lazy(() => import('./containers/LogIn'));
@@ -31,8 +31,6 @@ const defaultUser: UserData = {
 // type A = B & C;
 // type B = {}
 // type C = {}
-
-// const token = document.cookie.match(/(?:^|; )token=/) ? document.cookie.replace(/token=([0-9a-z]{256});/, '$1') : '';
 
 class App extends Component<{}, State> {
     constructor(props: {}) {
