@@ -47,10 +47,6 @@ class Chat extends React.Component<Props, State> {
         const { token, contactUserLogin } = this.props;
 
         const url: string = `http://192.168.1.6:3912/api/getHistory?peer=${contactUserLogin}&token=${token}`;
-        const options: RequestInit = {
-            method: 'GET',
-            mode: 'cors',
-        };
     
         const callback = (response: any) => {
             this.setState({
@@ -58,7 +54,7 @@ class Chat extends React.Component<Props, State> {
             });
         }
     
-        submit(url, options, callback);
+        submit(url, callback);
     }
 
     sendMessage(event: React.MouseEvent) {
@@ -68,10 +64,6 @@ class Chat extends React.Component<Props, State> {
         const { message } = this.state;
 
         const url: string = `http://192.168.1.6:3912/api/sendMessage?to=${contactUserLogin}&token=${token}&message=${message}`;
-        const options: RequestInit = {
-            method: 'GET',
-            mode: 'cors',
-        };
 
         const callback = (response: any) => {
             this.setState({
@@ -80,7 +72,7 @@ class Chat extends React.Component<Props, State> {
         }
 
         sendMessage(this.state.message);
-        submit(url, options, callback);
+        submit(url, callback);
 
         this.getHistory();
     }
@@ -134,7 +126,12 @@ class Chat extends React.Component<Props, State> {
     }
 };
 
-function submit(url: string, options: RequestInit, callback: (response: any) => void) {
+function submit(url: string, callback: (response: any) => void) {
+    
+    const options: RequestInit = {
+        method: 'GET',
+        mode: 'cors',
+    };
 
     fetch(url, options)
         .then(response => {

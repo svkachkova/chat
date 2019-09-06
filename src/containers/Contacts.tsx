@@ -8,6 +8,7 @@ type User = {
 
 type Props = {
     token: string;
+    userLogin: string;
 }
 
 type State = {
@@ -68,7 +69,7 @@ class Contacts extends React.Component<Props, State> {
         return (
             <div>
                 <div>
-                    <p>userName</p>
+                    <p>{this.props.userLogin}</p>
                     <Button
                         value='add'
                         link='/add'

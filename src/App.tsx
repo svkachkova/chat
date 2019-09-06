@@ -17,16 +17,11 @@ type UserData = {
 }
 
 type State = {
-    userIsCreated: boolean;
+    isCreated: boolean;
     isLoggin: boolean;
-    accessToken: string;
+    token: string;
     user: UserData;
 }
-
-const defaultUser: UserData = {
-    login: '',
-    password: ''
-};
 
 // type A = B & C;
 // type B = {}
@@ -37,10 +32,13 @@ class App extends Component<{}, State> {
         super(props);
 
         this.state = {
-            userIsCreated: false,
+            isCreated: false,
             isLoggin: false,
-            accessToken: Cookies.get('token') || '',
-            user: defaultUser
+            token: Cookies.get('token') || '',
+            user: {
+                login: '',
+                password: ''
+            }
         };
 
         this.handleUserChange = this.handleUserChange.bind(this);
@@ -59,9 +57,14 @@ class App extends Component<{}, State> {
         const url: string = `http://192.168.1.6:3912/api/createUser?login=${login}&password=${password}`;
 
         const callback = (response: any) => {
+            const { login } = this.state.user;
+
             this.setState({
-                userIsCreated: true,
-                user: defaultUser
+                isCreated: true,
+                user: {
+                    login: login,
+                    password: ''
+                }
             });
         };
 
@@ -73,10 +76,15 @@ class App extends Component<{}, State> {
         const url: string = `http://192.168.1.6:3912/api/login?login=${login}&password=${password}`;
 
         const callback = (response: any) => {
+            const { login } = this.state.user;
+
             this.setState({
                 isLoggin: true,
-                accessToken: response.token,
-                user: defaultUser
+                token: response.token,
+                user: {
+                    login: login,
+                    password: ''
+                }
             });
             document.cookie = `token=${response.token}`;
         }
@@ -94,7 +102,7 @@ class App extends Component<{}, State> {
                     <Route exact path='/' component={Promo}/>
             
                     <Route path='/signup' render={() => (
-                        this.state.userIsCreated ? (
+                        this.state.isCreated ? (
                         <Redirect to='/loggin' />
                         ) : (
                         <SignUp
@@ -116,12 +124,15 @@ class App extends Component<{}, State> {
                     )}/>
 
                     <Route path='/contacts' render={() => (
-                        <Contacts token={this.state.accessToken} />
+                        <Contacts 
+                            token={this.state.token} 
+                            userLogin={this.state.user.login}
+                        />
                     )}/>
 
                     <Route path={`/chat/${contactUserLogin}`} render={() => (
                         <Chat 
-                            token={this.state.accessToken} 
+                            token={this.state.token} 
                             userLogin={this.state.user.login} 
                             contactUserLogin={contactUserLogin}
                         />
