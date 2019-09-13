@@ -35,6 +35,7 @@ class App extends Component<{}, State> {
             isCreated: false,
             isLoggin: false,
             token: Cookies.get('token') || '',
+
             user: {
                 login: '',
                 password: ''
@@ -86,7 +87,8 @@ class App extends Component<{}, State> {
                     password: ''
                 }
             });
-            document.cookie = `token=${response.token}`;
+            // document.cookie = `token=${response.token}`;
+            Cookies.set('token', response.token);
         }
 
         submit(url, callback);
