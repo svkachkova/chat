@@ -4,8 +4,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Promo from './containers/Promo';
 import NotFound from './containers/NotFound';
 
-const Cookies = require('js-cookie');
-
 const SignUp = lazy(() => import('./containers/SignUp'));
 const LogIn = lazy(() => import('./containers/LogIn'));
 const Contacts = lazy(() => import('./containers/Contacts'));
@@ -33,8 +31,8 @@ class App extends Component<{}, State> {
 
         this.state = {
             isCreated: false,
-            isLoggin: false,
-            token: Cookies.get('token') || '',
+            token: localStorage.getItem('token') || '',
+            isLoggin: this.state.token ? true : false,
 
             user: {
                 login: '',
@@ -87,8 +85,7 @@ class App extends Component<{}, State> {
                     password: ''
                 }
             });
-            // document.cookie = `token=${response.token}`;
-            Cookies.set('token', response.token);
+            localStorage.setItem('token', response.token);
         }
 
         submit(url, callback);
