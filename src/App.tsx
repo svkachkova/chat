@@ -53,7 +53,7 @@ class App extends Component<{}, State> {
 
     handleSignUpSubmit() {
         const { login, password } = this.state.user;
-        const url: string = `http://192.168.1.6:3912/api/createUser?login=${login}&password=${password}`;
+        const url: string = `http://192.168.1.13:3912/api/createUser?login=${login}&password=${password}`;
 
         const callback = (response: any) => {
             const { login } = this.state.user;
@@ -72,7 +72,7 @@ class App extends Component<{}, State> {
 
     handleLogInSubmit() {
         const { login, password } = this.state.user;
-        const url: string = `http://192.168.1.6:3912/api/login?login=${login}&password=${password}`;
+        const url: string = `http://192.168.1.13:3912/api/login?login=${login}&password=${password}`;
 
         const callback = (response: any) => {
             const { login } = this.state.user;

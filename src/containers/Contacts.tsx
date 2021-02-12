@@ -27,7 +27,7 @@ class Contacts extends React.Component<Props, State> {
     componentDidMount() {
         const { token } = this.props;
 
-        const url: string = `http://192.168.1.6:3912/api/getContacts?token=${token}`;
+        const url: string = `http://192.168.1.13:3912/api/getContacts?token=${token}`;
         const options: RequestInit = {
             method: 'GET',
             mode: 'cors',

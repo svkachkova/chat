@@ -46,7 +46,7 @@ class Chat extends React.Component<Props, State> {
     getHistory() {
         const { token, contactUserLogin } = this.props;
 
-        const url: string = `http://192.168.1.6:3912/api/getHistory?peer=${contactUserLogin}&token=${token}`;
+        const url: string = `http://192.168.1.13:3912/api/getHistory?peer=${contactUserLogin}&token=${token}`;
     
         const callback = (response: any) => {
             this.setState({
@@ -63,7 +63,7 @@ class Chat extends React.Component<Props, State> {
         const { token, contactUserLogin } = this.props;
         const { message } = this.state;
 
-        const url: string = `http://192.168.1.6:3912/api/sendMessage?to=${contactUserLogin}&token=${token}&message=${message}`;
+        const url: string = `http://192.168.1.13:3912/api/sendMessage?to=${contactUserLogin}&token=${token}&message=${message}`;
 
         const callback = (response: any) => {
             this.setState({
