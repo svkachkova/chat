@@ -13,9 +13,9 @@ function LogIn(props: Props) {
         <div>
             <h1>Log in</h1>
             <p>
-                Don't have an account
-                ? <Link to='/signup'>
-                Get started
+                Don't have an account?&nbsp;
+                <Link to='/signup'>
+                    Get started
                 </Link>
             </p>
             <Form 

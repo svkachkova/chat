@@ -13,8 +13,8 @@ function SignUp(props: Props) {
         <div>
             <h1>Get started</h1>
             <p>
-                Already have an account
-                ? <Link to='/loggin'>
+                Already have an account?&nbsp;
+                <Link to='/loggin'>
                     Login
                 </Link>
             </p>

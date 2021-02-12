@@ -32,7 +32,7 @@ class App extends Component<{}, State> {
         this.state = {
             isCreated: false,
             token: localStorage.getItem('token') || '',
-            isLoggin: this.state.token ? true : false,
+            isLoggin: localStorage.getItem('token') ? true : false,
 
             user: {
                 login: '',
